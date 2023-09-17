@@ -1,0 +1,104 @@
+\documentclass[10pt,varwidth=6in,margin=0.2in,preview]{standalone}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{adjustbox}
+\usepackage[dvipsnames]{xcolor}
+
+\definecolor{pagecolor}{rgb}{1,0.98,0.9}
+
+\title{
+    Principles of Mathematical Analysis (3rd Edition)\\
+    by Walter Rudin
+}
+\author{
+    Peter Cerno\\
+    \small petercerno[at]gmail.com
+}
+
+\begin{document}
+
+\pagecolor{pagecolor}
+
+% __BEGIN
+
+\date{}
+\maketitle
+
+\begin{abstract}
+These are my solutions to exercises from the book \emph{Principles of Mathematical Analysis} by \emph{Walter Rudin} (3rd edition).
+\end{abstract}
+
+% __SLIDE
+
+\setcounter{section}{0}
+\section{The Real and Complex Number Systems}
+
+\setcounter{subsection}{5}
+\subsection{Exercise}
+
+Fix $b > 1$.
+
+% __PAUSE
+
+\begin{enumerate}[label=(\alph*)]
+
+\item
+If $m, n, p, q$ are integers, $n > 0, q > 0$, and $r = \frac{m}{n} = \frac{p}{q}$, prove that
+\[ (b^m)^{1/n} = (b^p)^{1/q} \]
+Hence it makes sense to define $b^r = (b^m)^{1/n}$.
+
+% __ADD::\end{enumerate}
+% __PAUSE
+
+\item
+Prove that $b^{r+s} = b^r b^s$ if $r$ and $s$ are rational.
+
+\end{enumerate}
+
+% __SLIDE
+
+\textbf{Proof}.
+
+\vspace{0.1in}
+
+(a) If $m, n, p, q$ are integers, $n > 0, q > 0$, and $r = \frac{m}{n} = \frac{p}{q}$, prove that $(b^m)^{1/n} = (b^p)^{1/q}$.
+% __PAUSE
+
+\vspace{0.1in}
+
+$\frac{m}{n} = \frac{p}{q}$ implies $mq = pn$, thus $b^{mq} = b^{pn} > 0$, i.e $(b^{mq})^{1/nq} = (b^{pn})^{1/nq}$.
+% __PAUSE
+Let us show that $(b^{mq})^{1/nq} = (b^m)^{1/n}$ and $(b^{pn})^{1/nq} = (b^p)^{1/q}$.
+% __PAUSE
+Apparently, $\left( (b^m)^{1/n} \right)^{nq} = \left[ \left( (b^m)^{1/n} \right)^n \right]^q = (b^m)^q = b^{mq}$, which implies that $(b^{mq})^{1/nq} = (b^m)^{1/n}$.
+% __PAUSE
+Similarly, $(b^{pn})^{1/nq} = (b^p)^{1/q}$.
+% __PAUSE
+Therefore, $(b^m)^{1/n} = (b^{mq})^{1/nq} = (b^{pn})^{1/nq} = (b^p)^{1/q}$. $\square$
+% __PAUSE
+
+\vspace{0.1in}
+
+(b) Prove that $b^{r+s} = b^r b^s$ if $r$ and $s$ are rational.
+% __PAUSE
+
+\vspace{0.1in}
+
+Let us assume that $r = \frac{p}{n}$ and $s = \frac{q}{n}$ for some positive integer $n$.
+% __PAUSE
+According to (a): $b^{r+s} = b^{(p+q)/n} = (b^{p+q})^{1/n}$, thus $(b^{r+s})^n = b^{p+q}$.
+% __PAUSE
+On the other hand, $(b^r b^s)^n = (b^r)^n (b^s)^n = \left( (b^p)^{1/n} \right)^n \left( (b^q)^{1/n} \right)^n = b^p b^q = b^{p+q}$.
+% __PAUSE
+Together we have $(b^{r+s})^n = b^{p+q} = (b^r b^s)^n$, which implies (b). $\square$
+
+% __END
+
+\vspace{4in}
+
+\hrule
+
+\end{document}
