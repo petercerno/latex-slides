@@ -1,4 +1,5 @@
 \documentclass[10pt,varwidth=6in,margin=0.2in,preview]{standalone}
+\usepackage[document]{ragged2e}
 \usepackage[english]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{amssymb}
@@ -19,6 +20,7 @@
 }
 
 \begin{document}
+\begin{flushleft}
 
 \pagecolor{pagecolor}
 
@@ -28,8 +30,11 @@
 \maketitle
 
 \begin{abstract}
-These are my solutions to exercises from the book \emph{Principles of Mathematical Analysis} by \emph{Walter Rudin} (3rd edition).
+These are my solutions to exercises from the book \emph{Principles of Mathematical Analysis} (3rd edition) by \emph{Walter Rudin}.
 \end{abstract}
+
+% __NOTE: Principles of Mathematical Analysis, third edition, by Walter Rudin.
+% __NOTE: These are my solutions to exercises from the book Principles of Mathematical Analysis, third edition, by Walter Rudin.
 
 % __SLIDE
 
@@ -41,6 +46,10 @@ These are my solutions to exercises from the book \emph{Principles of Mathematic
 
 Fix $b > 1$.
 
+% __NOTE: Chapter 1: The Real and Complex Number Systems.
+% __NOTE: Exercise 6.
+% __NOTE: Let us fix a real number b greater than 1.
+
 % __PAUSE
 
 \begin{enumerate}[label=(\alph*)]
@@ -51,12 +60,19 @@ If $m, n, p, q$ are integers, $n > 0, q > 0$, and $r = \frac{m}{n} = \frac{p}{q}
 Hence it makes sense to define $b^r = (b^m)^{1/n}$.
 
 % __ADD::\end{enumerate}
+
+% __NOTE: Assume that m, n, p, q are integers, n is bigger than 0, q is bigger than 0, and r is equal to m over n, which is equal to p over q.
+% __NOTE: First, we would like to prove that if we raise b to the power of m, and then compute its nth root, we get the same result as if we raise b to the power of p, and then compute its quth root.
+% __NOTE: This would allow us to define b to the power of the rational number r, since it does not matter how the rational number r is represented.
+
 % __PAUSE
 
 \item
 Prove that $b^{r+s} = b^r b^s$ if $r$ and $s$ are rational.
 
 \end{enumerate}
+
+% __NOTE: Second, we would like to prove that raising b to the power of r plus s gives us the same result as multiplying b to the power of r and b to the power of s, if both r and s are rational numbers. Note that this law holds for integers. Therefore, we would like to prove that it generalizes also to rational numbers.
 
 % __SLIDE
 
@@ -65,35 +81,48 @@ Prove that $b^{r+s} = b^r b^s$ if $r$ and $s$ are rational.
 \vspace{0.1in}
 
 (a) If $m, n, p, q$ are integers, $n > 0, q > 0$, and $r = \frac{m}{n} = \frac{p}{q}$, prove that $(b^m)^{1/n} = (b^p)^{1/q}$.
+% __NOTE: Proof.
+% __NOTE: Let us first focus on the first statement, which claims that it does not matter how the rational number r is represented.
+
 % __PAUSE
 
 \vspace{0.1in}
 
 $\frac{m}{n} = \frac{p}{q}$ implies $mq = pn$, thus $b^{mq} = b^{pn} > 0$, i.e $(b^{mq})^{1/nq} = (b^{pn})^{1/nq}$.
+% __NOTE: Suppose that we have two equivalent representations of the rational number r. In other words, let us assume that m over n is equal to p over q. In that case, m q is obviously equal to p n. Therefore, b raised to the power of m q is going to be equal to to b raised to the power p n. Let us compute the nq root of both sides.
 % __PAUSE
 Let us show that $(b^{mq})^{1/nq} = (b^m)^{1/n}$ and $(b^{pn})^{1/nq} = (b^p)^{1/q}$.
+% __NOTE: If we now show that the left hand side is equal to the nth root of b raised to the power of m, and that the right hand side is equal to the quth root of b raised to the power of p, we prove the second statement.
 % __PAUSE
 Apparently, $\left( (b^m)^{1/n} \right)^{nq} = \left[ \left( (b^m)^{1/n} \right)^n \right]^q = (b^m)^q = b^{mq}$, which implies that $(b^{mq})^{1/nq} = (b^m)^{1/n}$.
+% __NOTE: To prove that the left hand side is equal to the nth root of b raised to the power of m, we simply raise both sides to the power of n q, and check that we get the same number.
 % __PAUSE
 Similarly, $(b^{pn})^{1/nq} = (b^p)^{1/q}$.
+% __NOTE: The other equality is similar.
 % __PAUSE
 Therefore, $(b^m)^{1/n} = (b^{mq})^{1/nq} = (b^{pn})^{1/nq} = (b^p)^{1/q}$. $\square$
+% __NOTE: Putting everything together we get that the nth root of b to the power of m is equal to the quth root of b to the power of p.
 % __PAUSE
 
 \vspace{0.1in}
 
 (b) Prove that $b^{r+s} = b^r b^s$ if $r$ and $s$ are rational.
+% __NOTE: Let us now prove the second statement, which generalizes a similar statement for integers to all rational numbers.
 % __PAUSE
 
 \vspace{0.1in}
 
 Let us assume that $r = \frac{p}{n}$ and $s = \frac{q}{n}$ for some positive integer $n$.
+% __NOTE: Let us represent the rational number r as p over n, and the rational number s as q over n, where p, q, n are integers and n is bigger than 0. Note that for simplicity we assume the same denominator for both r and s.
 % __PAUSE
 According to (a): $b^{r+s} = b^{(p+q)/n} = (b^{p+q})^{1/n}$, thus $(b^{r+s})^n = b^{p+q}$.
+% __NOTE: According to the previously proved first statement, b to the power of r plus s is equal to the nth root of b to the power of p plus q. Let us raise both sides to the power of n. What we get is that the left hand side of equation raised to the power of n is equal to b raised to the power of p plus q.
 % __PAUSE
 On the other hand, $(b^r b^s)^n = (b^r)^n (b^s)^n = \left( (b^p)^{1/n} \right)^n \left( (b^q)^{1/n} \right)^n = b^p b^q = b^{p+q}$.
+% __NOTE: Now we only need to prove, that if we raise the right hand side of equation to the power of n, we get the same number. But this is easy to see by simple rearrangement of the terms, leveraging the commutative law for multiplication.
 % __PAUSE
 Together we have $(b^{r+s})^n = b^{p+q} = (b^r b^s)^n$, which implies (b). $\square$
+% __NOTE: This proves the second statement for all rational numbers.
 
 % __END
 
@@ -101,4 +130,5 @@ Together we have $(b^{r+s})^n = b^{p+q} = (b^r b^s)^n$, which implies (b). $\squ
 
 \hrule
 
+\end{flushleft}
 \end{document}

@@ -14,4 +14,4 @@ Easily convert LaTeX documents to slides with the look and feel of the original 
 **Turn Complex Articles into Comprehensive Lectures**:
 
 * **For Educators**: This tool was designed with lecturers and teachers in mind. Effortlessly transform detailed mathematical or scientific papers, and even entire books, into comprehensive lecture slides.
-* **Future Enhancements**: We are working towards integrating [Text-to-Speech AI](https://cloud.google.com/text-to-speech) functionality. This will empower users to supplement their slides with audio commentary or even produce top-tier video lectures, complete with subtitles. Stay tuned for more!
+* **Voice Support**: We have integrated [Text-to-Speech AI](https://cloud.google.com/text-to-speech) functionality that empowers users to supplement their slides with audio commentary or even produce top-tier video lectures, complete with subtitles. Stay tuned for more!
