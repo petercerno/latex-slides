@@ -1,3 +1,4 @@
+import ffmpeg
 import html
 import logging
 import shutil
@@ -32,6 +33,7 @@ flags.DEFINE_string("input", "example.tex", "Input LaTeX file.")
 flags.DEFINE_integer("dpi", 300, "Resolution in DPI for pdftoppm.")
 flags.DEFINE_integer("height", 1080, "Crop height in pixels for pdftoppm.")
 flags.DEFINE_bool("use_text_to_speech", True, "Use Google Cloud Text-to-Speech API.")
+flags.DEFINE_bool("create_video", True, "Create video by concatenating slides.")
 
 FLAGS = flags.FLAGS
 
@@ -193,7 +195,12 @@ def convert_pdf_to_png(path_no_ext: Path) -> str:
 
 def convert_notes_to_mp3(path: Path, notes: List[str]):
     ssml = "<speak>{}</speak>".format(
-        "\n".join([html.escape(line) + '<break time="1s"/>' for line in notes])
+        "\n".join(
+            [
+                html.escape(line) + ('<break time="1s"/>' if line.endswith(".") else "")
+                for line in notes
+            ]
+        )
     )
     synthesis_input = texttospeech.SynthesisInput(ssml=ssml)
     request = texttospeech.SynthesizeSpeechRequest(
@@ -208,11 +215,38 @@ def convert_notes_to_mp3(path: Path, notes: List[str]):
 def cleanup_output_directory(directory: Path):
     logging.info(f'Cleaning up the output directory: "{directory}"')
     for path in directory.iterdir():
-        if path.suffix not in [".png", ".txt", ".mp3"]:
+        if path.suffix not in [".png", ".txt", ".mp3", ".mp4"]:
             path.unlink()
 
 
+def create_video_from_images_and_audio(
+    image_paths: List[str], audio_paths: List[str], output_path: str
+):
+    audio_durations = [
+        ffmpeg.probe(audio_path)["format"]["duration"] for audio_path in audio_paths
+    ]
+    image_streams = [
+        ffmpeg.input(image_path, loop=1, t=duration)
+        for image_path, duration in zip(image_paths, audio_durations)
+    ]
+    audio_streams = [ffmpeg.input(audio_path) for audio_path in audio_paths]
+
+    video_stream = ffmpeg.concat(*image_streams, v=1, a=0)
+    audio_stream = ffmpeg.concat(*audio_streams, v=0, a=1)
+
+    ffmpeg.output(
+        video_stream,
+        audio_stream,
+        output_path,
+        vcodec="libx264",
+        acodec="aac",
+        strict="experimental",
+    ).run()
+
+
 def process_deck(deck: LatexSlideDeck, input_path: Path, output_directory: Path):
+    image_paths = []
+    audio_paths = []
     for slide_index, slide in enumerate(deck.slides):
         for step_index, step in enumerate(slide.steps):
             output_name = f"{input_path.stem}-{slide_index:04}-{step_index:04}"
@@ -221,11 +255,18 @@ def process_deck(deck: LatexSlideDeck, input_path: Path, output_directory: Path)
             write_to_file(output_tex_path, "\n".join(step.body))
             generate_pdf_from_latex(output_tex_path)
             convert_pdf_to_png(output_base)
+            image_paths.append(output_base.with_suffix(".png"))
             output_txt_path = output_base.with_suffix(".txt")
             write_to_file(output_txt_path, "\n".join(step.notes))
             if FLAGS.use_text_to_speech:
                 output_mp3_path = output_base.with_suffix(".mp3")
                 convert_notes_to_mp3(output_mp3_path, step.notes)
+                audio_paths.append(output_mp3_path)
+    if FLAGS.create_video and len(image_paths) == len(audio_paths):
+        output_mp4_path = (output_directory / input_path.stem).with_suffix(".mp4")
+        create_video_from_images_and_audio(
+            image_paths, audio_paths, f"{output_mp4_path}"
+        )
 
 
 def main(_):

@@ -102,16 +102,17 @@ Let us show that $(b^{mq})^{1/nq} = (b^m)^{1/n}$ and $(b^{pn})^{1/nq} = (b^p)^{1
 % __NOTE: If we now show that the left hand side
 % __PAUSE
 % __SUB::(b^{mq})^{1/nq}::\highlightb{(b^{mq})^{1/nq}}
-% __NOTE: is equal to the nth root of b raised to the power of m and that the right hand side
+% __NOTE: is equal to the nth root of b raised to the power of m, and that the right hand side
 % __PAUSE
 % __SUB::(b^{pn})^{1/nq}::\highlightt{(b^{pn})^{1/nq}}
-% __NOTE: is equal to the quth root of b raised to the power of p, we will prove the first statement.
+% __NOTE: is equal to the quth root of b raised to the power of p, then the first statement will follow easily.
 % __PAUSE
+
 Apparently, $\left( (b^m)^{1/n} \right)^{nq} = \left[ \left( (b^m)^{1/n} \right)^n \right]^q = (b^m)^q = b^{mq}$, which implies that $(b^{mq})^{1/nq} = (b^m)^{1/n}$.
 % __NOTE: To prove that the left hand side is equal to the nth root of b raised to the power of m, we simply raise both sides to the power of n q, and check that we get the same number.
 % __PAUSE
 Similarly, $(b^{pn})^{1/nq} = (b^p)^{1/q}$.
-% __NOTE: The other equality is similar.
+% __NOTE: It is easy to see that the other equality can be proved in the same way.
 % __PAUSE
 Therefore, $(b^m)^{1/n} = \highlightb{(b^{mq})^{1/nq}} = \highlightt{(b^{pn})^{1/nq}} = (b^p)^{1/q}$. $\square$
 % __NOTE: Putting everything together we get that the nth root of b to the power of m is equal to the quth root of b to the power of p.
@@ -119,7 +120,7 @@ Therefore, $(b^m)^{1/n} = \highlightb{(b^{mq})^{1/nq}} = \highlightt{(b^{pn})^{1
 
 \vspace{0.1in}
 
-(b) Prove that $b^{r+s} = b^r b^s$ if $r$ and $s$ are rational.
+(b) Prove that ${b^{r+s}} = {b^r b^s}$ if $r$ and $s$ are rational.
 % __NOTE: Let us now prove the second statement, which generalizes a similar statement for integers to all rational numbers.
 % __PAUSE
 
@@ -128,14 +129,22 @@ Therefore, $(b^m)^{1/n} = \highlightb{(b^{mq})^{1/nq}} = \highlightt{(b^{pn})^{1
 Let us assume that $r = \frac{p}{n}$ and $s = \frac{q}{n}$ for some positive integer $n$.
 % __NOTE: Let us represent the rational number r as p over n, and the rational number s as q over n, where p, q, n are integers and n is bigger than 0. Note that for simplicity we assume the same denominator for both r and s.
 % __PAUSE
-According to (a): $b^{r+s} = b^{(p+q)/n} = (b^{p+q})^{1/n}$, thus $(b^{r+s})^n = {b^{p+q}}$.
-% __NOTE: According to the previously proved first statement, b to the power of r plus s is equal to the nth root of b to the power of p plus q. Let us raise both sides to the power of n. What we get is that the left hand side of equation raised to the power of n is equal to b raised to the power of p plus q.
+According to (a): $b^{r+s} = b^{(p+q)/n} = (b^{p+q})^{1/n}$, thus $({b^{r+s}})^n = {b^{p+q}}$.
+% __NOTE: According to the previously proved first statement, b to the power of r plus s is equal to the nth root of b to the power of p plus q. Let us raise both sides to the power of n. What we get is that the left hand side of equation raised to the power of n
 % __PAUSE
-On the other hand, $(b^r b^s)^n = (b^r)^n (b^s)^n = \left( (b^p)^{1/n} \right)^n \left( (b^q)^{1/n} \right)^n = b^p b^q = {b^{p+q}}$.
-% __NOTE: Now we only need to prove, that if we raise the right hand side of equation to the power of n, we get the same number. But this is easy to see by simple rearrangement of the terms, leveraging the commutative law for multiplication.
+% __SUB::{b^{r+s}}::\highlightb{b^{r+s}}
+% __NOTE: is equal to b raised to the power of p plus q.
 % __PAUSE
-Together we have $(b^{r+s})^n = {b^{p+q}} = (b^r b^s)^n$, which implies (b). $\square$
+On the other hand, $({b^r b^s})^n = (b^r)^n (b^s)^n = \left( (b^p)^{1/n} \right)^n \left( (b^q)^{1/n} \right)^n = b^p b^q = {b^{p+q}}$.
+% __NOTE: Now we only need to prove, that if we raise the right hand side of equation to the power of n
+% __PAUSE
+% __SUB::{b^r b^s}::\highlightt{b^r b^s}
+% __NOTE: we get the same number.
+% __PAUSE
 % __SUB::{b^{p+q}}::\highlighto{b^{p+q}}
+% __NOTE: But this is easy to see by simple rearrangement of the terms, leveraging the commutative law for multiplication.
+% __PAUSE
+Together we have $(\highlightb{b^{r+s}})^n = \highlighto{b^{p+q}} = (\highlightt{b^r b^s})^n$, which implies (b). $\square$
 % __NOTE: This proves the second statement for all rational numbers.
 
 % __END
