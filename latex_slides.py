@@ -13,6 +13,8 @@ BEGIN_CMD = "% __BEGIN"
 SLIDE_CMD = "% __SLIDE"
 PAUSE_CMD = "% __PAUSE"
 NOTES_CMD = "% __NOTE:"
+SUB_CMD = "% __SUB::"
+SUB_SEP = "::"
 ADD_CMD = "% __ADD::"
 POP_CMD = "% __POP"
 END_CMD = "% __END"
@@ -72,6 +74,9 @@ class LatexSlide:
                 )
                 steps.append(step)
                 blocks.append([])
+            elif line.startswith(SUB_CMD):
+                [old, new] = line[len(SUB_CMD) :].split(SUB_SEP)
+                self._substitute(blocks, old, new)
             elif line == POP_CMD:
                 blocks.pop()
             else:
@@ -91,6 +96,12 @@ class LatexSlide:
     def _notes(self, block: List[str]) -> List[str]:
         """Extracts notes from the given block."""
         return [line[len(NOTES_CMD) :] for line in block if line.startswith(NOTES_CMD)]
+
+    def _substitute(self, blocks: List[List[str]], old: str, new: str):
+        for i in range(len(blocks)):
+            for j in range(len(blocks[i])):
+                if old in blocks[i][j]:
+                    blocks[i][j] = blocks[i][j].replace(old, new)
 
 
 class LatexSlideDeck:
