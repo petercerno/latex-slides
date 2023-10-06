@@ -1,17 +1,35 @@
 # LaTeX-to-Slides Converter
 
-Easily convert LaTeX documents to slides with the look and feel of the original LaTeX format. Users can define their custom slide breaks by inserting specific comments into the LaTeX source. This tool has been validated on macOS.
+Easily convert LaTeX documents into visually appealing slides with the look and feel of the original LaTeX format.
 
-**Dependencies**:
+## 🚀 Features
 
-* [Python 3.10+](https://docs.conda.io/projects/miniconda/en/latest/)
+- **Maintain Original Formatting**: Keep the aesthetic and structure of your original LaTeX document.
+- **Customizable Slide Breaks**: Define your slide transitions through simple comment insertions into the LaTeX source.
+- **Voice and Video Support**: Leverage [Google Text-to-Speech API](https://cloud.google.com/text-to-speech) to enhance slides with auditory commentary and create high-quality video lectures.
+
+## 🛠 Dependencies
+
+Ensure you have the following dependencies installed:
+
+* [Python 3.10+](https://www.python.org/)
 * [Abseil Flags](https://abseil.io/docs/python/guides/flags)
 * [LaTeX](https://www.latex-project.org/get/)
 * [Poppler](https://poppler.freedesktop.org/)
+* [FFmpeg](https://ffmpeg.org/) and [ffmpeg-python](https://pypi.org/project/ffmpeg-python/)
+* [Text-to-Speech Client Libraries](https://cloud.google.com/text-to-speech/docs/libraries)
 
-# Why Use LaTeX-to-Slides Converter?
+We recommend utilizing [Miniconda](https://docs.conda.io/projects/miniconda/en/latest/) for managing Python and [Visual Studio Code](https://code.visualstudio.com/) as your code editor.
 
-**Turn Complex Articles into Comprehensive Lectures**:
+> **Note**: For using [Google Cloud Text-to-Speech API](https://cloud.google.com/text-to-speech) locally, make sure to set up [Application Default Credentials](https://cloud.google.com/docs/authentication/provide-credentials-adc) (ADC). Ensure the `GOOGLE_APPLICATION_CREDENTIALS` environment variable points to the ADC JSON config and `GCLOUD_PROJECT` points to the Google Cloud Project with the enabled Cloud Text-to-Speech API.
 
-* **For Educators**: This tool was designed with lecturers and teachers in mind. Effortlessly transform detailed mathematical or scientific papers, and even entire books, into comprehensive lecture slides.
-* **Voice Support**: We have integrated [Text-to-Speech AI](https://cloud.google.com/text-to-speech) functionality that empowers users to supplement their slides with audio commentary or even produce top-tier video lectures, complete with subtitles. Stay tuned for more!
+This tool has been validated on macOS.
+
+## 🎓 Ideal for Educators
+
+Designed with educators and lecturers in mind, this tool enables you to:
+
+- **Transform Comprehensive Documents**: Effortlessly convert detailed mathematical or scientific documents into comprehensive lecture slides.
+- **Produce Video Lectures**: Generate video lectures, ensuring accessibility and facilitating an engaging learning experience.
+
+Stay tuned for more exciting features and improvements!
