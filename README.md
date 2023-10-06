@@ -1,6 +1,6 @@
 # LaTeX-to-Slides Converter
 
-Easily convert LaTeX documents into visually appealing slides with the look and feel of the original LaTeX format.
+Easily convert LaTeX documents into visually appealing slides with the look and feel of the original LaTeX format. See this [Example Lecture](https://www.youtube.com/watch?v=Kl6WqrZHWFc).
 
 ## 🚀 Features
 
