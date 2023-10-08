@@ -3,9 +3,9 @@ import html
 import logging
 import shutil
 import subprocess
-from google.cloud import texttospeech
 from absl import app, flags
 from enum import Enum, auto
+from google.cloud import texttospeech
 from pathlib import Path
 from typing import Iterator, List, Tuple
 
@@ -97,7 +97,11 @@ class LatexSlide:
 
     def _notes(self, block: List[str]) -> List[str]:
         """Extracts notes from the given block."""
-        return [line[len(NOTES_CMD) :] for line in block if line.startswith(NOTES_CMD)]
+        return [
+            line[len(NOTES_CMD) :].strip()
+            for line in block
+            if line.startswith(NOTES_CMD)
+        ]
 
     def _substitute(self, blocks: List[List[str]], old: str, new: str):
         for i in range(len(blocks)):
@@ -247,6 +251,7 @@ def create_video_from_images_and_audio(
 def process_deck(deck: LatexSlideDeck, input_path: Path, output_directory: Path):
     image_paths = []
     audio_paths = []
+    subtitles = []
     for slide_index, slide in enumerate(deck.slides):
         for step_index, step in enumerate(slide.steps):
             output_name = f"{input_path.stem}-{slide_index:04}-{step_index:04}"
@@ -262,11 +267,14 @@ def process_deck(deck: LatexSlideDeck, input_path: Path, output_directory: Path)
                 output_mp3_path = output_base.with_suffix(".mp3")
                 convert_notes_to_mp3(output_mp3_path, step.notes)
                 audio_paths.append(output_mp3_path)
+                subtitles = subtitles + step.notes
     if FLAGS.create_video and len(image_paths) == len(audio_paths):
         output_mp4_path = (output_directory / input_path.stem).with_suffix(".mp4")
         create_video_from_images_and_audio(
             image_paths, audio_paths, f"{output_mp4_path}"
         )
+        output_subtitles_path = (output_directory / input_path.stem).with_suffix(".txt")
+        write_to_file(output_subtitles_path, "\n".join(subtitles))
 
 
 def main(_):
