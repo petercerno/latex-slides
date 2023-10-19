@@ -1,0 +1,184 @@
+\documentclass[10pt,varwidth=6in,margin=0.2in,preview]{standalone}
+\usepackage[document]{ragged2e}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{adjustbox}
+\usepackage[dvipsnames]{xcolor}
+
+\definecolor{pagecolor}{rgb}{1,0.98,0.9}
+
+\title{
+    Principles of Mathematical Analysis (3rd Edition)\\
+    by Walter Rudin
+}
+\author{
+    Peter Cerno\\
+    \small petercerno[at]gmail.com
+}
+
+\begin{document}
+\begin{flushleft}
+
+\pagecolor{pagecolor}
+
+% __BEGIN
+
+\setcounter{section}{0}
+\section{The Real and Complex Number Systems}
+
+\setcounter{subsection}{0}
+\subsection*{Introduction}
+
+Every mathematical theory introduces some definitions and is subsequently built upon a set of axioms that are universally accepted as true. As our focus is on mathematical analysis, it is necessary to strike the right balance between what we already accept as true and what we aim to prove. With that in mind, we will not delve into the axioms governing the arithmetic of integers or explore the depths of complex topics like set theory or number theory. Instead, we will assume a basic familiarity with integers and rational numbers.
+% __NOTE: Every mathematical theory introduces some definitions and is subsequently built upon a set of axioms that are universally accepted as true. As our focus is on mathematical analysis, it is necessary to strike the right balance between what we already accept as true and what we aim to prove. With that in mind, we will not delve into the axioms governing the arithmetic of integers or explore the depths of complex topics like set theory or number theory. Instead, we will assume a basic familiarity with integers and rational numbers.
+% __BREAK
+
+Integers will be denoted by $\mathbb{Z} = \{ \ldots, -2, -1, 0, 1, 2, \ldots \}$. When $a$ and $b$ are integers, we can perform various operations like addition: $a + b$, subtraction: $a - b$, and multiplication: $a \cdot b$ or simply $ab$. These operations obey the standard laws of arithmetic such as the commutative, associative, and distributive laws, among others. However, division within the set of integers is not always feasible. Specifically, we cannot always divide one integer by another and obtain an integer as the result. For instance, dividing $5$ by $2$ does not yield an integer. This observation leads to the concept of divisibility.
+% __NOTE: Integers will be denoted by a big letter [Z]. When [a] and [b] are integers, we can perform various operations like addition: [a] plus [b]. Subtraction: [a] minus [b]. And multiplication: [a] times [b] or simply [a b]. These operations obey the standard laws of arithmetic such as the commutative, associative, and distributive laws, among others. However, division within the set of integers is not always feasible. Specifically, we cannot always divide one integer by another and obtain an integer as the result. For instance, dividing 5 by 2 does not yield an integer. This observation leads to the concept of divisibility.
+
+% __SLIDE
+
+\textbf{Definition}. Let $a, b \in \mathbb{Z}$ with $b \neq 0$. We say that $b$ divides $a$, or that $a$ is divisible by $b$, if there is a quotient $q \in \mathbb{Z}$ such that $a = b \cdot q$. We write $b \mid a$ to indicate that $b$ divides $a$. If $b$ does not divide $a$, then we write $b \nmid a$.
+% __NOTE: Definition. Assume that [a] and [b] are integers with [b] not equal to 0. We say that [b] divides [a], or that [a] is divisible by [b], if there is an integer quotient [q] such that [a] is equal to [b] times [q].
+% __BREAK
+
+\textbf{Observation}.
+% __NOTE: Observation. Observe that:
+% __BREAK
+
+\begin{enumerate}[label=(\alph*)]
+\item If $a \mid b$ and $b \mid c$ then $a \mid c$.
+% __ADD::\end{enumerate}
+% __NOTE: If [a] divides [b] and [b] divides [c] then [a] divides [c] as well. In other words, the relation of divisibility is transitive.
+% __BREAK
+\item If $a \mid b$ and $b \mid a$ then $a = \pm b$.
+% __ADD::\end{enumerate}
+% __NOTE: If [a] divides [b] and [b] divides [a] then [a] is equal to plus or minus [b].
+% __BREAK
+\item If $a \mid b$ and $a \mid c$ then $a \mid (b \pm c)$.
+\end{enumerate}
+% __NOTE: Finally, if [a] divides both [b] and [c] then [a] also divides [b] plus or minus [c].
+% __BREAK
+
+\textbf{Definition}. Suppose $b > 0$. We say that $a$ divided by $b$ has quotient $q$ and reminder $r$ if
+\[a = b \cdot q + r \text{\; with\; } 0 \le r < b.\]
+% __NOTE: Definition. Suppose that [b] is a positive integer. We say that [a] divided by [b] has quotient [q] and reminder [r] if [a] is equal to [b] times [q] plus [r], with [r] being a nonnegative integer smaller than [b].
+% __BREAK
+The values of $q$ and $r$ are uniquely determined by $a$ and $b$. 
+% __NOTE: The values of [q] and [r] are uniquely determined by [a] and [b]. Note that the reason why we require [b] to be a positive integer is that we want the reminder to be always a nonnegative integer smaller than [b].
+% __BREAK
+
+\textbf{Example}. $5 \mid 35$, because $35 = 5 \cdot 7$. On the other hand, $5 \nmid 13$, since $13 = 5 \cdot 2 + 3$, where the reminder is $0 < 3 < 5$.
+% __NOTE: Example. 5 divides 35, because 35 is equal to 5 times 7. On the other hand, 5 does not divide 13, since 13 is equal to 5 times 2 plus 3, where the reminder 3 is greater than 0, but smaller than 5.
+
+% __SLIDE
+
+\textbf{Definition}. A common divisor of two integers $a$ and $b$ is a positive integer $d$ that divides both of them. If $a \neq 0$ or $b \neq 0$ then the greatest common divisor of $a$ and $b$ is, as its name suggests, the largest positive integer $d$ that divides both $a$ and $b$, and is denoted $\gcd(a, b)$. We say that $a$ and $b$ are relatively prime if $\gcd(a, b) = 1$.
+% __NOTE: Definition. A common divisor of two integers [a] and [b] is a positive integer [d] that divides both of them. If [a] and [b] are not both equal to 0, then the greatest common divisor of [a] and [b] is, as its name suggests, the largest positive integer [d] that divides both [a] and [b], and is denoted gcd of [a] and [b]. We say that [a] and [b] are relatively prime if their greatest common divisor is equal to 1.
+% __BREAK
+
+\textbf{Example}. $\gcd(12, 18) = 6$, since $6 \mid 12$ and $6 \mid 18$, and there is no larger number with this property.
+% __NOTE: Example. gcd of 12 and 18 is equal to 6, since 6 divides both 12 and 18, and there is no larger number with this property.
+% __BREAK
+
+\textbf{Observation}. Note that $\gcd(a, b) = \gcd(\pm a, \pm b) = \gcd(\pm b, \pm a)$. So when computing $\gcd(a, b)$ we will always assume that $a \ge b$ and that $a > 0$. Also note that $\gcd(a, a) = \gcd(a, 0) = a$ for every positive integer $a$, but $\gcd(0, 0)$ is not defined, because every positive integer divides $0$.
+% __NOTE: Observation. Note that the greatest common divisor of [a] and [b] does not change if we change the sign or the order of [a] and [b]. So when computing gcd of [a] and [b] we will always assume that [a] is greater than or equal to [b] and that [a] is a positive integer. Also note that gcd of [a] and [a] is equal to gcd of [a] and 0, which is equal to [a] for every positive integer [a]. That being said gcd of 0 and 0 is not defined, because every positive integer divides 0.
+% __BREAK
+
+\textbf{Observation}. Suppose that $a \ge b > 0$, and $a = b \cdot q + r$ with $0 \le r < b$. If $d \mid a$ and $d \mid b$ then also $d \mid r$. On the other hand, if $d \mid b$ and $d \mid r$ then also $d \mid a$. This implies that $\gcd(a, b) = \gcd(b, r)$, which directly leads to the so-called Euclidean Algorithm for computing $\gcd$.
+% __NOTE: Observation. Suppose that [a] and [b] are positive integers, [a] is greater than or equal to [b], and [a] divided by [b] has quotient [q] and reminder [r]. If an integer [d] divides both [a] and [b] then it divides also [r]. On the other hand, if an integer [d] divides both [b] and [r] then it divides also [a]. This implies that gcd of [a] and [b] is equal to gcd of [b] and [r], which directly leads to the so-called Euclidean Algorithm for computing the greatest common divisor.
+
+% __SLIDE
+
+\textbf{The Extended Euclidean Algorithm}: Suppose $a, b \in \mathbb{Z}$, $a \neq 0$ or $b \neq 0$. Then there exist integers $u, v$ such that $\gcd(a, b) = a \cdot u + b \cdot v$.
+% __NOTE: The Extended Euclidean Algorithm. Suppose [a] and [b] are integers, not both equal to 0. Then there exist integers [u] and [v] such that the greatest common divisor of [a] and [b] is equal to the linear combination [a] times [u] plus [b] times [v].
+% __BREAK
+
+\textbf{Proof}.
+% __NOTE: Proof.
+% __BREAK
+Without loss of generality assume that $a \ge b \ge 0$, $a > 0$.
+% __NOTE: Without loss of generality assume that [a] is greater than or equal to [b] and that [a] is a positive integer.
+% __BREAK
+The statement is obviously true for $b = 0$, since $\gcd(a, 0) = a \cdot 1 + b \cdot 0$.
+% __NOTE: The statement is obviously true for [b] equal to 0, since gcd of [a] and 0 is equal to [a] times 1 plus [b] times 0.
+% __BREAK
+Suppose $a \ge b > 0$ and $a = b \cdot q + r$ with $0 \le r < b$.
+% __NOTE: Suppose that [a] and [b] are positive integers, [a] is greater than or equal to [b], and [a] divided by [b] has quotient [q] and reminder [r].
+% __BREAK
+Since $\gcd(a, b) = \gcd(b, r)$, recursively we get integers $s, t$ such that $\gcd(b, r) = b \cdot s + r \cdot t$.
+% __NOTE: Since gcd of [a] and [b] is equal to gcd of [b] and [r], recursively we get integers [s] and [t] such that gcd of [b] and [r] is equal to [b] times [s] plus [r] times [t]. Note that the recursion will end in finite number of steps because in every step we are computing gcd of smaller numbers. If we wanted to prove this more formally, we would prove the statement by induction with respect to [b].
+% __BREAK
+Substituting $r = a - b \cdot q$ we get $\gcd(b, r) = b \cdot s + (a - b \cdot q) \cdot t = a \cdot t + b \cdot (s - q \cdot t)$, i.e. $u = t$ and $v = s - q \cdot t$. $\square$
+% __NOTE: Substituting [r] being equal to [a] minus [b] times [q] we get gcd of [b] and [r] as a linear combination of [a] and [b], where [u] is equal to [t], and [v] is equal to [s] minus [q] times [t]. This completes the proof.
+% __BREAK
+
+\textbf{Definition}. An integer $p$ is called a prime if $p \ge 2$ and if the only positive integers dividing $p$ are $1$ and $p$. For example, $2, 3, 5, 7, 11, 13, 17, 19, 23, 29$ are the first $10$ primes. There are infinitely many primes, a fact known already in ancient Greece.
+% __NOTE: Definition. An integer [p] is called a prime if [p] is at least 2 and if the only positive integers dividing [p] are 1 and [p] itself. For example, 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 are the first 10 primes. There are infinitely many primes, a fact known already in ancient Greece.
+% __BREAK
+
+\textbf{Observation}. Let $p$ be a prime number. If $p \mid a \cdot b$ then $p \mid a$ or $p \mid b$. More generally, if $p \mid a_1 a_2 \ldots a_n$ then $p \mid a_i$, for some $i \in \{1, 2, \ldots, n\}$.
+% __NOTE: Observation. Let [p] be a prime number. If [p] divides [a] times [b] then [p] divides [a] or [b]. More generally, if [p] divides [a] 1 times [a] 2, and so on, times [a] [n], then [p] divides at least one of the elements [a] [i].
+% __BREAK
+
+\textbf{Proof}.
+% __NOTE: Proof.
+% __BREAK
+Let $g = \gcd(a, p)$. Then $g \mid p$, so either $g = 1$ or $g = p$.
+% __NOTE: Let [g] be the greatest common divisor of [a] and [p]. Then [g] divides the prime number [p], so either [g] is equal to 1 or to [p] itself.
+% __BREAK
+If $g = p$ then $p \mid a$ and we are done.
+% __NOTE: If [g] is equal to [p] then [p] divides [a] and we are done.
+% __BREAK
+If $g = 1$ then there are integers $u, v$ such that $a \cdot u + p \cdot v = 1$.
+% __NOTE: If [g] is equal to 1 then there are integers [u] and [v] such that [a] times [u] plus [p] times [v] is equal 1.
+% __BREAK
+Multiplying both sides by $b$ we get $a \cdot b \cdot u + p \cdot b \cdot v = b$.
+% __NOTE: Multiplying both sides by [b] we get that [abu] plus [pbv] is equal to [b].
+% __BREAK
+Since $p \mid a \cdot b$, necessarily $p \mid a \cdot b \cdot u + p \cdot b \cdot v = b$. $\square$
+% __NOTE: Since [p] divides [ab], necessarily [p] also divides [b]. This completes the proof.
+
+% __SLIDE
+
+\textbf{The Fundamental Theorem of Arithmetic}: Let $a \ge 2$ be an integer. Then $a$ can be uniquely factored as a product of prime numbers $a = p_1^{e_1} \cdot p_2^{e_2} \cdot \ldots \cdot p_k^{e_k}$, where $p_1 < p_2 < \ldots < p_k$ are primes and $e_1, e_2, \ldots, e_k$ are positive integers.
+% __NOTE: The Fundamental Theorem of Arithmetic. Let [a] be an integer greater than or equal to 2. Then [a] can be uniquely factored as a product of prime numbers [p] 1 to the power of [e] 1, times [p] 2 to the power of [e]2, and so on, times [p] [k] to the power of [e] [k], where [p] 1 is smaller than [p] 2, and so on, are all primes, and [e] 1, [e] 2, and so on, are all positive integers.
+% __BREAK
+
+\textbf{Proof}.
+% __NOTE: Proof.
+% __BREAK
+If $a$ is not already a prime then it can be factored as $a = b \cdot c$ where $1 < b \le c < a$. 
+% __NOTE: If [a] is not already a prime then it can be factored as [b] times [c], where both [b] and [c] are bigger than 1, but smaller than [a].
+% __BREAK
+We can then recursively factor both $b$ and $c$, and this process will eventually stop after a finite number of steps.
+% __NOTE: We can then recursively factor both [b] and [c], and this process will eventually stop after a finite number of steps.
+% __BREAK
+Suppose that $a$ has two factorizations $a = p_1 \cdot p_2 \cdot \ldots \cdot p_s$ = $q_1 \cdot q_2 \cdot \ldots \cdot q_t$, where $p_i$ and $q_j$ are all primes, not necessarily distinct, and $s \le t$.
+% __NOTE: Suppose that [a] has two factorizations, where [p] [i] and [q] [j] are all primes, not necessarily distinct, and [s] is less than or equal to [t].
+% __BREAK
+Since $p_1 \mid q_1 \cdot q_2 \cdot \ldots \cdot q_s$, there exists $j$ such that $p_1 \mid q_j$.
+% __NOTE: Since [p] [1] divides the second right hand side factorization, there exists [j] such that [p] 1 divides [q] [j].
+% __BREAK
+Assume that $j = 1$, i.e. $p_1 \mid q_1$.
+% __NOTE: Without loss of generality assume that [j] is equal to 1, in other words, [p] 1 divides [q] 1.
+% __BREAK
+Then $p_1 = q_1$ and we get $p_2 \cdot \ldots \cdot p_s$ = $q_2 \cdot \ldots \cdot q_t$.
+% __NOTE: Then [p] 1 is equal to [q] 1 and we can remove [p] 1 and [q] 1 from both sides.
+% __BREAK
+After $s$ steps we get $1 = 1 \cdot q_{s+1} \cdot \ldots \cdot q_t$, which implies that $s = t$ and both factorizations are the same. $\square$
+% __NOTE: After [s] steps we get 1 equal to some suffix of the right hand side factorization, which implies that [s] is equal to [t] and both factorizations must be the same. This completes the proof.
+
+% __NOTE: This concludes the section on integers. I hope you have enjoyed this lecture. In the next lecture we will discuss rational numbers.
+
+% __END
+
+\vspace{4in}
+
+\hrule
+
+\end{flushleft}
+\end{document}
