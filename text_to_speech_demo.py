@@ -11,15 +11,8 @@ import html
 # Imports the Google Cloud client libraries
 from google.cloud import texttospeech
 
-text = """Chapter 1: The Real and Complex Number Systems.
-These are my solutions to exercises from the book Principles of Mathematical Analysis by Walter Rudin, third edition.
-
-Exercise 6
-
-Assume that m, n, p, q are integers, n is bigger than 0, q is bigger than 0, and r is equal to m over n, which is equal to p over q.
-First, we would like to prove that if we raise b to the power of m, and then compute its nth root, we get the same result as if we raise b to the power of p, and then compute its quth root.
-This would allow us to define the power to the rational number r, since it does not matter how the rational number r is represented.
-"""
+text = """Every mathematical theory introduces some definitions and is subsequently built upon a set of axioms that are universally accepted as true. As our focus is on mathematical analysis, it is necessary to strike the right balance between what we already accept as true and what we aim to prove.
+With that in mind, we will not delve into the axioms governing the arithmetic of integers or explore the depths of complex topics like set theory or number theory. Instead, we will assume a basic familiarity with integers and rational numbers."""
 
 output_path = "demo.mp3"
 
@@ -27,7 +20,7 @@ output_path = "demo.mp3"
 client = texttospeech.TextToSpeechClient()
 voice = texttospeech.VoiceSelectionParams(
     language_code="en-US",
-    name="en-US-Studio-O",
+    name="en-US-Neural2-F",  # "en-US-Studio-O",
     ssml_gender=texttospeech.SsmlVoiceGender.FEMALE,
 )
 audio_config = texttospeech.AudioConfig(audio_encoding=texttospeech.AudioEncoding.MP3)
@@ -40,7 +33,11 @@ escaped_lines = html.escape(text)
 
 # Convert plaintext to SSML in order to wait one second
 # between each line in synthetic speech
-ssml = "<speak>{}</speak>".format(escaped_lines.replace("\n", '\n<break time="1s"/>'))
+ssml = "<speak>{}</speak>".format(
+    escaped_lines.replace("\n", '\n<break time="2s"/>').replace(
+        ". ", '.<break time="1s"/> '
+    )
+)
 
 # Sets the text input to be synthesized
 synthesis_input = texttospeech.SynthesisInput(ssml=ssml)

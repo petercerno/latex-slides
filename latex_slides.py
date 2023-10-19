@@ -12,7 +12,7 @@ from typing import Iterator, List, Tuple
 # Constants: Special LaTeX Commands
 BEGIN_CMD = "% __BEGIN"
 SLIDE_CMD = "% __SLIDE"
-PAUSE_CMD = "% __PAUSE"
+BREAK_CMD = "% __BREAK"
 NOTES_CMD = "% __NOTE:"
 SUB_CMD = "% __SUB::"
 SUB_SEP = "::"
@@ -41,7 +41,7 @@ FLAGS = flags.FLAGS
 texttospeech_client = texttospeech.TextToSpeechClient()
 voice = texttospeech.VoiceSelectionParams(
     language_code="en-US",
-    name="en-US-Studio-O",
+    name="en-US-Neural2-F",  # "en-US-Studio-O",
     ssml_gender=texttospeech.SsmlVoiceGender.FEMALE,
 )
 audio_config = texttospeech.AudioConfig(
@@ -68,8 +68,8 @@ class LatexSlide:
 
     def _parse(self) -> List[LatexSlideStep]:
         steps, blocks = [], [[]]
-        for line in self._lines + [PAUSE_CMD]:
-            if line == PAUSE_CMD:
+        for line in self._lines + [BREAK_CMD]:
+            if line == BREAK_CMD:
                 step = LatexSlideStep(
                     self._header + self._join(blocks) + self._footer,
                     self._notes(blocks[-1]),
@@ -198,10 +198,16 @@ def convert_pdf_to_png(path_no_ext: Path) -> str:
 
 
 def convert_notes_to_mp3(path: Path, notes: List[str]):
+    if len(notes) == 0:
+        raise Exception(f"Empty notes for: {path}")
     ssml = "<speak>{}</speak>".format(
         "\n".join(
             [
-                html.escape(line) + ('<break time="1s"/>' if line.endswith(".") else "")
+                html.escape(line)
+                .replace("[", '<say-as interpret-as="verbatim">')
+                .replace("]", "</say-as>")
+                .replace(".", '.<break time="1s"/> ')
+                + ('<break time="2s"/>' if line.endswith(".") else "")
                 for line in notes
             ]
         )
