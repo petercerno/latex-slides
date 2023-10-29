@@ -29,7 +29,11 @@ logging.basicConfig(
 # Therefore, we recommend using 6.4in wide LaTex documents and 300dpi.
 # Another option would be 3840px x 2160px, also known as 4K resolution.
 
-flags.DEFINE_string("input", "example.tex", "Input LaTeX file.")
+flags.DEFINE_string(
+    "input",
+    "principles_of_analysis/01_number_systems/02_rationals.tex",
+    "Input LaTeX file.",
+)
 flags.DEFINE_integer("dpi", 300, "Resolution in DPI for pdftoppm.")
 flags.DEFINE_integer("height", 1080, "Crop height in pixels for pdftoppm.")
 flags.DEFINE_bool("use_text_to_speech", True, "Use Google Cloud Text-to-Speech API.")
@@ -280,7 +284,8 @@ def process_deck(deck: LatexSlideDeck, input_path: Path, output_directory: Path)
             image_paths, audio_paths, f"{output_mp4_path}"
         )
         output_subtitles_path = (output_directory / input_path.stem).with_suffix(".txt")
-        write_to_file(output_subtitles_path, "\n".join(subtitles))
+        clean_subtitles = "\n".join(subtitles).replace("[", "").replace("]", "")
+        write_to_file(output_subtitles_path, clean_subtitles)
 
 
 def main(_):
