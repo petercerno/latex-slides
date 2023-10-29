@@ -1,0 +1,265 @@
+\documentclass[10pt,varwidth=6in,margin=0.2in,preview]{standalone}
+\usepackage[document]{ragged2e}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{enumitem}
+\usepackage{adjustbox}
+\usepackage[dvipsnames]{xcolor}
+
+\newtheorem{definition}{Definition}[section]
+\newtheorem{theorem}[definition]{Theorem}
+\newtheorem{remark}[definition]{Remark}
+\newtheorem{example}[definition]{Example}
+
+\newtheorem*{_observation}{Observation}
+
+\renewcommand\qedsymbol{}
+
+\definecolor{pagecolor}{rgb}{1,0.98,0.9}
+
+\title{
+    Principles of Mathematical Analysis (3rd Edition)\\
+    by Walter Rudin
+}
+\author{
+    Peter Cerno\\
+    \small petercerno[at]gmail.com
+}
+
+\begin{document}
+\begin{flushleft}
+
+\pagecolor{pagecolor}
+
+% __BEGIN
+
+\setcounter{section}{0}
+\section{The Real and Complex Number Systems}
+
+\setcounter{subsection}{0}
+\subsection*{Introduction}
+
+Rational numbers will be denoted by $\mathbb{Q} = \{ \frac{m}{n} \mid m, n \in \mathbb{Z}, n \neq 0 \}$.
+% __NOTE: In this lecture we are going to discuss rational numbers. Rational numbers will be denoted by a big letter [Q], which is a set of all numbers of the form [m] over [n], where [m] and [n] are integers with [n] not equal to 0.
+% __BREAK
+More formally, rational numbers are defined as equivalence classes in $Q = \{ (m, n) \mid m, n \in \mathbb{Z}, n \neq 0 \}$ under the equivalence relation $\sim$ on $Q$ defined as follows: $(a, b) \sim (c, d)$ if and only if $a d = b c$. We will not pursue this formalism.
+% __NOTE: More formally, rational numbers are defined as equivalence classes in a set of tuples [m] and [n], where [m] and [n] are integers, [n] not equal to 0, under the equivalence relation defined as follows. Tuple [a] [b] is equal to tuple [c] [d] if and only if [ad] is equal to [bc]. Note that this is equivalent to [a] over [b] being equal to [c] over [d]. We will, however, not pursue this rather technical formalism, and instead rely on the more intuitive version of rational numbers.
+% __BREAK
+
+\begin{_observation}
+Every rational number $r$ can be expressed in multiple distinct yet equivalent forms.
+% __NOTE: Observation. Every rational number [r] can be expressed in multiple distinct yet equivalent forms.
+% __ADD::\end{_observation}
+% __BREAK
+For example, $\frac{1}{3} = \frac{2}{6} = \frac{3}{9}$, and so on. That being said, there is a unique representation $r = \frac{a}{b}$ such that $a, b \in \mathbb{Z}$, $b > 0$ and $\gcd(a, b) = 1$.
+\end{_observation}
+% __NOTE: For example, one third is equal to two sixths, which is equal to three ninths, and so on. That being said, there is a unique representation of [r] equal to [a] over [b], such that [a] and [b] are relatively prime integers, and [b] is greater than 0.
+% __BREAK
+
+\begin{proof}
+% __NOTE: Proof.
+% __ADD::\end{proof}
+% __BREAK
+Let $r = \frac{m}{n}$, $n \neq 0$.
+% __NOTE: Let [r] be a rational number equal to [m] over [n], [n] not equal to 0.
+% __ADD::\end{proof}
+% __BREAK
+Assume $n > 0$.
+% __NOTE: Without loss of generality let us assume that [n] is greater than 0. If [n] were a negative number then we could switch signs of both [m] and [n].
+% __ADD::\end{proof}
+% __BREAK
+If $g = \gcd(m, n) > 1$ then $m = g \cdot a$, $n = g \cdot b$, and $\frac{m}{n} = \frac{g \cdot a}{g \cdot b} = \frac{a}{b}$, where $b > 0$ and $\gcd(a, b) = 1$.
+% __NOTE: Let [g] be the greatest common divisor of [m] and [n]. If [g] is greater than 1, then we can cross it out from both [m] and [n], and get [a] over [b], where [a] and [b] are relatively prime, with [b] greater than 0.
+% __ADD::\end{proof}
+% __BREAK
+Let us show that this representation is unique.
+% __NOTE: Let us show that this representation is unique.
+% __ADD::\end{proof}
+% __BREAK
+If $a = 0$ then $\gcd(a, b) = b = 1$, i.e. $r = \frac{0}{1}$.
+% __NOTE: If [a] is equal to 0 then [b] must be equal to 1. In other words, [r] would be equal to 0 over 1.
+% __ADD::\end{proof}
+% __BREAK
+Suppose that $a > 0$ 
+% __NOTE: Without loss of generality suppose that [a] is a positive integer. Note that negative integers would be resolved similarly.
+% __ADD::\end{proof}
+% __BREAK
+and $r = \frac{c}{d}$ for some positive integers $c, d$, such that $\gcd(c, d) = 1$.
+% __NOTE: Assume that [r] can be represented also as [c] over [d], where [c] and [d] are relatively prime positive integers.
+% __ADD::\end{proof}
+% __BREAK
+We have $a \cdot d = c \cdot b$.
+% __NOTE: Obviously [ad] is equal to [cb].
+% __ADD::\end{proof}
+% __BREAK
+If a prime $p$ divides $a$ then it also divides $c$ (since it cannot divide $b$), and vice versa. 
+% __NOTE: Now if a prime [p] divides [a] then it also divides [c], because it cannot divide [b]. Vice versa, if a prime [p] divides [c] then it also divides [a], because it cannot divide [d].
+% __ADD::\end{proof}
+% __BREAK
+Thus $a$ and $c$ are factored into the same set of primes (and exponents), which means that $a = c$, and consequently $b = d$. $\square$
+\end{proof}
+% __NOTE: As you can see, this implies that [a] and [c] must be factored into the same set of primes, including exponents, which means that [a] is equal to [c]. As a consequence, [b] is equal to [d], so the representation is unique.
+
+% __SLIDE
+
+The rational number system is both a field and also an ordered set, but it is inadequate for most purposes in mathematical analysis.
+% __NOTE: The rational number system is both a field and also an ordered set, but it is inadequate for most purposes in mathematical analysis. 
+% __BREAK
+For example, many polynomials do not have a root in $\mathbb{Q}$ (there is no rational $r$ such that $r^2 = 2$).
+% __NOTE: For example, many polynomials do not have a root in rational numbers. There is no rational number [r], such that [r] squared is equal to 2.
+% __BREAK
+Moreover, $\mathbb{Q}$ as an ordered field is not complete, i.e. not every Cauchy sequence in $\mathbb{Q}$ converges in $\mathbb{Q}$.
+% __NOTE: Moreover, the set of rational numbers [Q] as an ordered field is not complete, which means that not every rational Cauchy sequence converges to a rational number.
+% __BREAK
+
+\setcounter{section}{1}
+\setcounter{definition}{0}
+\begin{example}
+The equation $r^2 = 2$ is not satisfied by any rational number $r$.
+% __NOTE: Example. There is no rational number [r], such that [r] squared is equal to 2.
+% __ADD::\end{example}
+% __BREAK
+Assume (for the sake of contradiction) that there exists a rational number $r = \frac{m}{n}$ with $m, n \in \mathbb{Z}$, $n > 0$, and $\gcd(m, n) = 1$, such that $r^2 = \frac{m^2}{n^2} = 2$.
+% __NOTE: Assume, for the sake of contradiction, that there exists a rational number [r] equal to [m] over [n], where [m] and [n] are relatively prime integers with [n] greater than 0, such that [r] squared is equal to 2.
+% __ADD::\end{example}
+% __BREAK
+In that case $m^2 = 2 \cdot n^2$. 
+% __NOTE: In that case [m] squared is equal to 2 times [n] squared.
+% __ADD::\end{example}
+% __BREAK
+This shows that $m^2$ is even, hence $m$ is even (if $m$ were odd, $m^2$ would be odd).
+% __NOTE: This shows that [m] squared is even, hence [m] must be even as well. If [m] were odd then [m] squared would be also odd.
+% __ADD::\end{example}
+% __BREAK
+Writing $m = 2 \cdot a$ for some $a \in \mathbb{Z}$ we get $m^2 = 4 \cdot a^2 = 2 \cdot n^2$, i.e. $n^2 = 2 \cdot a^2$.
+% __NOTE: If we write [m] as 2 times [a] for some integer [a], we get [m] squared equal to 4 times [a] squared, which is equal to 2 times [n] squared. By crossing out 2 from both sides we get that [n] squared is equal to 2 times [a] squared.
+% __ADD::\end{example}
+% __BREAK
+This means that $n$ is even as well, i.e. $n = 2 \cdot b$ for some $b \in \mathbb{Z}$.
+% __NOTE: But this means that [n] is even as well. In other words, [n] is equal to 2 times [b] for some integer [b],
+% __ADD::\end{example}
+% __BREAK
+But then $2 \mid \gcd(m, n) = \gcd(2a, 2b)$, 
+% __NOTE: But this implies that 2 divides the greatest common divisor of [m] and [n].
+% __ADD::\end{example}
+% __BREAK
+which is a contradiction with $\gcd(m, n) = 1$.
+ $\square$
+\end{example}
+% __NOTE: This is a contradiction with the fact that [m] and [n] are relatively prime, which means that there is no rational number [r], such that [r] squared is equal to 2.
+
+% __NOTE: As you can see, we have found a gap in the set of rational numbers. Let us explore this particular gap in a little more detail.
+
+% __SLIDE
+
+\begin{_observation}
+Let $A = \{ r \in \mathbb{Q} \mid r > 0 \text{ and } r^2 < 2 \}$.
+% __NOTE: Observation. Define [A] as a set of positive rational numbers such that [r] squared is smaller than 2.
+% __ADD::\end{_observation}
+% __BREAK
+Then $A$ contains no largest number, i.e. for every $p \in A$ we can find $q \in A$ such that $q > p$.
+\end{_observation}
+% __NOTE: Then the set [A] contains no largest number. In other words, for every rational number [p] in the set [A] we can find another rational number [q] in the set [A] such that [q] is greater than [p].
+% __BREAK
+
+\begin{proof}
+% __NOTE: Proof.
+% __ADD::\end{proof}
+% __BREAK
+Let $p \in A$, i.e. $p > 0$ and $p^2 < 2$.
+% __NOTE: Assume that [p] is from the set [A], in other words [p] is a positive rational number such that [p] squared is smaller than 2.
+% __ADD::\end{proof}
+% __BREAK
+We would like to construct a rational number $\delta > 0$ such that $q = p + \delta$ still satisfies $q^2 < 2$.
+% __NOTE: We would like to construct a small positive rational number delta, such that if we take [q] equal to [p] plus delta, we still get [q] squared smaller than 2.
+% __ADD::\end{proof}
+% __BREAK
+We have $q^2 = (p + \delta)^2 = p^2 + 2 p \delta + \delta^2 < 2$ if and only if $2 p \delta + \delta^2 < 2 - p^2$.
+% __NOTE: [q] squared is smaller than 2, if and only if, 2 [p] delta plus delta squared is smaller than 2 minus [p] squared. The problem with this expression is that we cannot easily factor out the unknown delta from the left hand side of this inequality. One approach that we could try is to change the left hand side to some other, simpler expression, and also make sure that this simpler expression will represent a bigger number.
+% __ADD::\end{proof}
+% __BREAK
+Note that $\delta$ must satisfy $p + \delta < 2$, 
+% __NOTE: To that end note that [p] plus delta must be smaller than 2. Otherwise, [q] squared would be obviously greater than 2.
+% __ADD::\end{proof}
+% __BREAK
+i.e. $2 p \delta + \delta^2 < (p + 2) \delta$.
+% __NOTE: If we add p to both sides, and then multiply both sides by delta, we get that 2 [p] delta plus delta squared is smaller than [p] plus 2 times delta. Note that the right hand side is the desired simpler expression. If we make the right hand side equal to 2 minus [p] squared, we are done.
+% __ADD::\end{proof}
+% __BREAK
+Take $\delta = \frac{2 - p^2}{p + 2}$.
+% __NOTE: But this is easy to do. Just take delta equal to 2 minus [p] squared over [p] plus 2.
+% __ADD::\end{proof}
+% __BREAK
+Then $\delta > 0$ and $p + \delta = \frac{p^2 + 2p + 2 - p^2}{p + 2} < 2$,
+% __NOTE: Now we only need to verify that delta is a positive rational number, and that [p] plus delta is a positive rational number smaller than 2. But this is obvious.
+% __ADD::\end{proof}
+% __BREAK
+i.e. $2 p \delta + \delta^2 < (p + 2) \delta = 2 - p^2$. $\square$
+\end{proof}
+% __NOTE: As a result, we get that 2 [p] delta plus delta squared is smaller than 2 minus [p] squared. This is equivalent to [q] squared being smaller than 2, which we wanted to prove.
+
+% __SLIDE
+
+\begin{_observation}
+Let $B = \{ r \in \mathbb{Q} \mid r > 0 \text{ and } r^2 > 2 \}$. 
+% __NOTE: Observation. Define [B] as a set of positive rational numbers such that [r] squared is greater than 2.
+% __ADD::\end{_observation}
+% __BREAK
+Then $B$ contains no smallest number, i.e. for every $p \in B$ we can find $q \in B$ such that $q < p$.
+\end{_observation}
+% __NOTE: Then the set [B] contains no smallest number. In other words, for every rational number [p] in the set [B] we can find another rational number [q] in the set [B] such that [q] is smaller than [p].
+% __BREAK
+
+\begin{proof}
+% __NOTE: Proof.
+% __ADD::\end{proof}
+% __BREAK
+Let $p \in B$, i.e. $p > 0$ and $p^2 > 2$.
+% __NOTE: Assume that [p] is from the set [B], in other words [p] is a positive rational number such that [p] squared is greater than 2.
+% __ADD::\end{proof}
+% __BREAK
+We would like to construct a rational number $\delta > 0$ such that $q = p - \delta$ satisfies $q > 0$ and $q^2 > 2$.
+% __NOTE: We would like to construct a small positive rational number delta, such that if we take [q] equal to [p] minus delta, we get a positive rational number [q], such that [q] squared is still greater than 2.
+% __ADD::\end{proof}
+% __BREAK
+We have $q^2 = (p - \delta)^2 = p^2 - 2 p \delta + \delta^2 > 2$ if and only if $2 p \delta - \delta^2 < p^2 - 2$. 
+% __NOTE: [q] squared is greater than 2, if and only if, 2 [p] delta minus delta squared is smaller than [p] squared minus 2. In addition, we need to make sure that [p] minus delta is still a positive rational number. We will follow a similar approach as before.
+% __ADD::\end{proof}
+% __BREAK
+If $p - \delta < 2$ then $2 p \delta - \delta^2 < (p + 2) \delta$.
+% __NOTE: If [p] minus delta is smaller than 2, then if we add [p] to both sides and then multiply both sides by delta, we get that 2 [p] delta minus delta squared is smaller than [p] plus 2 times delta. If we make the right hand side equal to [p] squared minus 2, we are done.
+% __ADD::\end{proof}
+% __BREAK
+Take $\delta = \frac{p^2 - 2}{p + 2}$.
+% __NOTE: Again, this is easy to do. Just take delta equal to [p] squared minus 2 over [p] plus 2.
+% __ADD::\end{proof}
+% __BREAK
+Then $\delta > 0$ and $0 < p - \delta = \frac{p^2 + 2p - p^2 + 2}{p + 2} < 2$,
+% __NOTE: Now we only need to verify that delta is a positive rational number, and that [p] minus delta is a positive rational number smaller than 2. But this is obvious.
+% __ADD::\end{proof}
+% __BREAK
+i.e. $2 p \delta - \delta^2 < (p + 2) \delta = p^2 - 2$. $\square$
+\end{proof}
+% __NOTE: As a result, we get that 2 [p] delta minus delta squared is smaller than [p] squared minus 2. This is equivalent to [q] squared being greater than 2, which we wanted to prove.
+% __BREAK
+
+\setcounter{section}{1}
+\setcounter{definition}{1}
+\begin{remark}
+The purpose of the above discussion has been to show that rational numbers have certain gaps. This is in spite of the fact that between any two rationals $p < q$ there is another one $p < \frac{p + q}{2} < q$. Our goal will be to design a system of real numbers that fills these gaps.
+\end{remark}
+% __NOTE: The purpose of the above discussion has been to show that rational numbers have certain gaps. This is in spite of the fact that between any two rationals [p] and [q], such that [p] is smaller than [q], there exists another one rational number [p] plus [q] over 2. In fact, there are infinitely many rational numbers between [p] and [q]. Our goal will be to design a system of real numbers that fills these gaps.
+
+% __NOTE: This concludes the section on rational numbers. I hope you have enjoyed this lecture. In the next lecture we will discuss ordered sets.
+
+% __END
+
+\vspace{4in}
+
+\hrule
+
+\end{flushleft}
+\end{document}
