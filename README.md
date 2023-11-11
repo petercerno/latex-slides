@@ -1,6 +1,6 @@
 # LaTeX-to-Slides Converter
 
-Easily convert LaTeX documents into visually appealing slides with the look and feel of the original LaTeX format. See this [Example Lecture](https://www.youtube.com/watch?v=tliSFWab1t8), or this [Playlist](https://www.youtube.com/playlist?list=PLn_PVMBSJNp0Ci0u7XiNgyP1OorIRmBKV) (Principles of Mathematical Analysis).
+Easily convert LaTeX documents into visually appealing slides with the look and feel of the original LaTeX format. See e.g. this [YouTube Playlist](https://www.youtube.com/playlist?list=PLn_PVMBSJNp0Ci0u7XiNgyP1OorIRmBKV) (Principles of Mathematical Analysis).
 
 ## 🚀 Features
 
