@@ -6,7 +6,7 @@ Easily convert LaTeX documents into visually appealing slides with the look and 
 
 - **Maintain Original Formatting**: Keep the aesthetic and structure of your original LaTeX document.
 - **Customizable Slide Breaks**: Define your slide transitions through simple comment insertions into the LaTeX source.
-- **Voice and Video Support**: Leverage [Google Text-to-Speech API](https://cloud.google.com/text-to-speech) to enhance slides with auditory commentary and create high-quality video lectures.
+- **Voice and Video Support**: Leverage [Google](https://cloud.google.com/text-to-speech) or [OpenAI](https://platform.openai.com/docs/guides/text-to-speech) Text-to-Speech API to enhance slides with auditory commentary and create high-quality video lectures.
 
 ## 🛠 Dependencies
 
@@ -17,11 +17,14 @@ Ensure you have the following dependencies installed:
 * [LaTeX](https://www.latex-project.org/get/)
 * [Poppler](https://poppler.freedesktop.org/)
 * [FFmpeg](https://ffmpeg.org/) and [ffmpeg-python](https://pypi.org/project/ffmpeg-python/)
-* [Text-to-Speech Client Libraries](https://cloud.google.com/text-to-speech/docs/libraries)
+* [Google Text-to-Speech Client Libraries](https://cloud.google.com/text-to-speech/docs/libraries)
+* [OpenAI Python Library](https://platform.openai.com/docs/api-reference/introduction)
 
 We recommend utilizing [Miniconda](https://docs.conda.io/projects/miniconda/en/latest/) for managing Python and [Visual Studio Code](https://code.visualstudio.com/) as your code editor.
 
-> **Note**: For using [Google Cloud Text-to-Speech API](https://cloud.google.com/text-to-speech) locally, make sure to set up [Application Default Credentials](https://cloud.google.com/docs/authentication/provide-credentials-adc) (ADC). Ensure the `GOOGLE_APPLICATION_CREDENTIALS` environment variable points to the ADC JSON config and `GCLOUD_PROJECT` points to the Google Cloud Project with the enabled Cloud Text-to-Speech API.
+> **Note**: If you are using [Google Cloud Text-to-Speech API](https://cloud.google.com/text-to-speech) locally, make sure to set up [Application Default Credentials](https://cloud.google.com/docs/authentication/provide-credentials-adc) (ADC). Ensure that the `GOOGLE_APPLICATION_CREDENTIALS` environment variable points to the ADC JSON config and `GCLOUD_PROJECT` points to the Google Cloud Project with the enabled Cloud Text-to-Speech API.
+
+> **Note**: If you are using [OpenAI Text-to-Speech API](https://platform.openai.com/docs/guides/text-to-speech) locally, simply set up the `OPENAI_API_KEY` environment variable.
 
 This tool has been validated on macOS.
 
