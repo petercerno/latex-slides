@@ -3,9 +3,11 @@ import html
 import logging
 import shutil
 import subprocess
+import time
 from absl import app, flags
 from enum import Enum, auto
 from google.cloud import texttospeech
+from openai import OpenAI
 from pathlib import Path
 from typing import Iterator, List, Tuple
 
@@ -36,13 +38,17 @@ flags.DEFINE_string(
 )
 flags.DEFINE_integer("dpi", 300, "Resolution in DPI for pdftoppm.")
 flags.DEFINE_integer("height", 1080, "Crop height in pixels for pdftoppm.")
-flags.DEFINE_bool("use_text_to_speech", True, "Use Google Cloud Text-to-Speech API.")
+flags.DEFINE_bool("text_to_speech", True, "Use Text-to-Speech.")
+flags.DEFINE_string(
+    "text_to_speech_api", "openai", "Text-to-Speech API: google or openai."
+)
 flags.DEFINE_bool("create_video", True, "Create video by concatenating slides.")
 
 FLAGS = flags.FLAGS
 
 
-texttospeech_client = texttospeech.TextToSpeechClient()
+# Google Cloud API Client
+google_client = texttospeech.TextToSpeechClient()
 voice = texttospeech.VoiceSelectionParams(
     language_code="en-US",
     name="en-US-Neural2-F",  # "en-US-Studio-O",
@@ -51,6 +57,9 @@ voice = texttospeech.VoiceSelectionParams(
 audio_config = texttospeech.AudioConfig(
     audio_encoding=texttospeech.AudioEncoding.MP3,
 )
+
+# OpenAI API Client
+openai_client = OpenAI()
 
 
 class LatexSlideStep:
@@ -201,9 +210,7 @@ def convert_pdf_to_png(path_no_ext: Path) -> str:
     return execute_shell_command(command)
 
 
-def convert_notes_to_mp3(path: Path, notes: List[str]):
-    if len(notes) == 0:
-        raise Exception(f"Empty notes for: {path}")
+def convert_notes_to_mp3_google(path: Path, notes: List[str]):
     ssml = "<speak>{}</speak>".format(
         "\n".join(
             [
@@ -220,10 +227,32 @@ def convert_notes_to_mp3(path: Path, notes: List[str]):
     request = texttospeech.SynthesizeSpeechRequest(
         input=synthesis_input, voice=voice, audio_config=audio_config
     )
-    response = texttospeech_client.synthesize_speech(request=request)
+    response = google_client.synthesize_speech(request=request)
     logging.info(f"Writing audio response to file: {path}")
     with path.open("wb") as file:
         file.write(response.audio_content)
+
+
+def convert_notes_to_mp3_openai(path: Path, notes: List[str]):
+    input = "\n".join(
+        [html.escape(line).replace("[", '"').replace("]", '"') for line in notes]
+    )
+    response = openai_client.audio.speech.create(
+        model="tts-1-hd", voice="fable", input=input, speed=1.0
+    )
+    response.stream_to_file(path)
+    time.sleep(20)  # Tier 1: 3 RPM
+
+
+def convert_notes_to_mp3(path: Path, notes: List[str]):
+    if len(notes) == 0:
+        raise Exception(f"Empty notes for: {path}")
+    if FLAGS.text_to_speech_api == "google":
+        convert_notes_to_mp3_google(path, notes)
+    elif FLAGS.text_to_speech_api == "openai":
+        convert_notes_to_mp3_openai(path, notes)
+    else:
+        raise Exception(f"Unknown API: {FLAGS.text_to_speech_api}")
 
 
 def cleanup_output_directory(directory: Path):
@@ -273,7 +302,7 @@ def process_deck(deck: LatexSlideDeck, input_path: Path, output_directory: Path)
             image_paths.append(output_base.with_suffix(".png"))
             output_txt_path = output_base.with_suffix(".txt")
             write_to_file(output_txt_path, "\n".join(step.notes))
-            if FLAGS.use_text_to_speech:
+            if FLAGS.text_to_speech:
                 output_mp3_path = output_base.with_suffix(".mp3")
                 convert_notes_to_mp3(output_mp3_path, step.notes)
                 audio_paths.append(output_mp3_path)
@@ -290,7 +319,7 @@ def process_deck(deck: LatexSlideDeck, input_path: Path, output_directory: Path)
 
 def main(_):
     input_path = Path(FLAGS.input).resolve()
-    output_directory = input_path.parent / "out"
+    output_directory = input_path.parent / f"out_{input_path.stem}"
     create_empty_directory(output_directory)
     slide_deck = LatexSlideDeck(read_from_file(input_path))
     process_deck(slide_deck, input_path, output_directory)
