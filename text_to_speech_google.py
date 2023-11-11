@@ -14,7 +14,7 @@ from google.cloud import texttospeech
 text = """Every mathematical theory introduces some definitions and is subsequently built upon a set of axioms that are universally accepted as true. As our focus is on mathematical analysis, it is necessary to strike the right balance between what we already accept as true and what we aim to prove.
 With that in mind, we will not delve into the axioms governing the arithmetic of integers or explore the depths of complex topics like set theory or number theory. Instead, we will assume a basic familiarity with integers and rational numbers."""
 
-output_path = "demo.mp3"
+output_path = "demo_google.mp3"
 
 # Instantiates a client
 client = texttospeech.TextToSpeechClient()
